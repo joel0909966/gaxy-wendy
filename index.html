@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Galaxia de Amor - Para Mi Mujer</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow: hidden; background-color: #000; }
+        
+        /* PÁGINA DE BIENVENIDA */
+        #pagina-bienvenida {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: linear-gradient(135deg, #0a0015 0%, #1a0033 25%, #330066 50%, #1a0033 75%, #0a0015 100%);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 1000; transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+        }
+        #pagina-bienvenida.ocultar { opacity: 0; visibility: hidden; }
+        
+        .contenedor-mensaje {
+            background: linear-gradient(135deg, rgba(255, 105, 180, 0.95) 0%, rgba(255, 20, 147, 0.95) 100%);
+            padding: 50px 60px; border-radius: 30px; text-align: center; max-width: 600px;
+            box-shadow: 0 0 60px rgba(255, 105, 180, 0.8), 0 0 120px rgba(255, 20, 147, 0.6), inset 0 0 60px rgba(255, 255, 255, 0.1);
+            animation: aparecerSuave 1s ease-out, flotarSuave 3s ease-in-out infinite;
+            border: 3px solid rgba(255, 255, 255, 0.4); position: relative; z-index: 10;
+        }
+        
+        @keyframes aparecerSuave { from { opacity: 0; transform: scale(0.8) translateY(50px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        @keyframes flotarSuave { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } }
+        
+        .cerdo-emoji { font-size: 60px; animation: girarBalancear 4s ease-in-out infinite; margin-bottom: 15px; filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8)); }
+        @keyframes girarBalancear { 0%, 100% { transform: rotate(-15deg) scale(1); } 25% { transform: rotate(15deg) scale(1.15); } 50% { transform: rotate(-15deg) scale(1); } 75% { transform: rotate(15deg) scale(1.15); } }
+        
+        .contenedor-mensaje h1 { color: white; font-size: 38px; margin: 15px 0; text-shadow: 4px 4px 8px rgba(0,0,0,0.8); font-weight: bold; letter-spacing: 2px; }
+        .texto-grande { color: white; font-size: 22px; margin: 15px 0; text-shadow: 3px 3px 6px rgba(0,0,0,0.7); font-weight: bold; }
+        .texto-medio { color: white; font-size: 18px; margin: 20px 0; line-height: 1.8; text-shadow: 2px 2px 4px rgba(0,0,0,0.6); }
+        .texto-pequeño { color: rgba(255, 255, 255, 0.95); font-size: 16px; margin: 15px 0; line-height: 1.6; text-shadow: 2px 2px 4px rgba(0,0,0,0.6); }
+        
+        #btn-iniciar {
+            background: white; color: #ff1493; border: none; padding: 20px 40px; font-size: 20px;
+            border-radius: 35px; cursor: pointer; margin-top: 30px; font-weight: bold;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4); text-transform: uppercase; letter-spacing: 1.5px;
+        }
+        #btn-iniciar:hover { background: linear-gradient(135deg, #ffb6c1 0%, #ff69b4 100%); color: white; transform: scale(1.2) translateY(-5px); box-shadow: 0 15px 35px rgba(255, 105, 180, 0.7); }
+        #btn-iniciar:active { transform: scale(1.1) translateY(-2px); }
+        
+        /* ESTRELLAS DE FONDO */
+        .estrellas-fondo {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(2px 2px at 20% 30%, white, transparent), radial-gradient(2px 2px at 60% 70%, white, transparent), radial-gradient(1px 1px at 50% 50%, white, transparent), radial-gradient(1px 1px at 80% 10%, white, transparent), radial-gradient(2px 2px at 90% 60%, white, transparent), radial-gradient(1px 1px at 33% 80%, white, transparent), radial-gradient(1px 1px at 15% 15%, white, transparent);
+            background-size: 200% 200%; animation: brillarEstrellas 3s ease-in-out infinite; pointer-events: none;
+        }
+        .estrellas-fondo-2 { animation-delay: 1s; opacity: 0.6; }
+        .estrellas-fondo-3 { animation-delay: 2s; opacity: 0.4; }
+        @keyframes brillarEstrellas { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.05); } }
+        
+        /* PÁGINA GALAXIA */
+        #pagina-galaxia { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; }
+        #galaxy-container { width: 100vw; height: 100vh; display: block; touch-action: none; }
+        
+        #instrucciones {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7); color: white; padding: 12px 25px; border-radius: 25px;
+            font-size: 14px; text-align: center; backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2); z-index: 100; animation: aparecer 2s ease-out;
+        }
+        @keyframes aparecer { from { opacity: 0; transform: translateX(-50%) translateY(30px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+        
+        @media (max-width: 768px) {
+            .contenedor-mensaje { padding: 35px 30px; max-width: 90%; }
+            .contenedor-mensaje h1 { font-size: 28px; }
+            .cerdo-emoji { font-size: 45px; }
+            .texto-grande { font-size: 18px; }
+            .texto-medio { font-size: 16px; }
+            .texto-pequeño { font-size: 14px; }
+            #btn-iniciar { font-size: 17px; padding: 16px 30px; }
+            #instrucciones { font-size: 12px; padding: 10px 20px; bottom: 10px; }
+        }
+        @media (max-width: 480px) {
+            .contenedor-mensaje { padding: 25px 20px; }
+            .contenedor-mensaje h1 { font-size: 24px; }
+            .cerdo-emoji { font-size: 40px; }
+        }
+    </style>
+</head>
+<body>
+    <audio id="audio-fondo" loop>
+        <source src="luna.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="pagina-bienvenida">
+        <div class="contenedor-mensaje">
+            <div class="cerdo-emoji">💕</div>
+            <h1>Para mi mujer</h1>
+            <p class="texto-grande"><strong>te amo wendy</strong></p>
+            <p class="texto-medio"><br>
+            eres como una estrella y casualmente yo amo las estrellas🌟</p>
+            <p class="texto-pequeño">
+                Cada llamada, cada risa,<br>
+                cada momento contigo vale el estres
+            </p>
+            <button id="btn-iniciar">
+                Explora nuestro universo
+            </button>
+        </div>
+        <div class="estrellas-fondo"></div>
+        <div class="estrellas-fondo estrellas-fondo-2"></div>
+        <div class="estrellas-fondo estrellas-fondo-3"></div>
+    </div>
+
+    <div id="pagina-galaxia" style="display: none;">
+        <div id="galaxy-container"></div>
+        <div id="instrucciones">
+            <p>🖱️ Arrastra para rotar | 🔍 Scroll para zoom | 📱 Pellizca para zoom</p>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
